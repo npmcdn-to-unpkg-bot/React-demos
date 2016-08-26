@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var dom = document.querySelector('#example');
+        var data = '123';
+        var Input = React.createClass({
+            clickHandler: function(){
+                this.refs.myInput.value = 'Hello, abby!'
+            },
+            render: function(){
+                return (
+                    <div>
+                        <input type="text" ref="myInput" />
+                        <input type="button" value="click" onClick={this.clickHandler} />
+                    </div>
+                )
+            }
+        })
+        
+        ReactDOM.render(<Input />,dom);
+    </script>
+  </body>
+</html>

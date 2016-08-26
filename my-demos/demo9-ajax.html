@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/react.js"></script>
+    <script src="/react-dom.js"></script>
+    <script src="/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var dom = document.querySelector('#example');
+        var getInfo=[],postInfo=[];
+
+        var Ajax = React.createClass({
+            ajax: function(method,data){
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open(method,'/fetch',true);
+                xhr.setRequestHeader('content-type','application/json');
+                xhr.onload = function(){
+                    console.log(this.response);
+                    if(method == 'GET'){
+                        getInfo = this.response;
+                    }else{
+                        postInfo = this.response;
+                    }
+                }
+                xhr.send(data);
+                
+            },
+            post: function(e){
+                var data = JSON.stringify({data: this.refs.myInput.value});
+                this.ajax('POST',data);
+            },
+            get: function(e){
+                this.ajax('GET',null);
+            },
+            render: function(){
+                return (
+                    <div>
+                        <input type="text" ref="myInput" />
+                        <input type="button" value="click(POST)" onClick={this.post} />
+                        <input type="button" value="click(GET)" onClick={this.get} />
+                        <div class="get">
+                            {getInfo.map((item,i)=>{
+                                return <div key={i}>{item}</div>
+                            })}
+                        </div>
+                        <div class="post">
+                            {getInfo.map((item,i)=>{
+                                return <div key={i}>{item.name}</div>
+                            })}
+                        </div>
+                    </div>
+                );
+            },
+        })
+        
+        ReactDOM.render(<Ajax />,dom);
+    </script>
+  </body>
+</html>

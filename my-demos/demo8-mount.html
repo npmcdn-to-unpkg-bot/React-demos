@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var dom = document.querySelector('#example');
+        var Input = React.createClass({
+            getInitialState: function(){
+                return {
+                    font: '12px'
+                }
+            },
+            componentDidMount: function(){
+                setInterval(()=>{
+                    var font = parseInt(this.state.font);
+                    font += 1;
+                    if(font > 50){
+                        font = 12;
+                    }
+                    this.setState({
+                        font: font + 'px'
+                    })
+                },100)
+            },
+            render: function(){
+                var value = this.state.value;
+                return (
+                    <div style={{fontSize:this.state.font}}>
+                        Hello, Abby
+                    </div>
+                )
+            }
+        })
+        
+        ReactDOM.render(<Input />,dom);
+    </script>
+  </body>
+</html>
