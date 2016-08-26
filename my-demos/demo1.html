@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var Hello = React.createClass({
+            getInitialState: function(){
+                return {
+                    greeting: 'Hello',
+                    style:{
+                        color: 'black',
+                        fontSize: '14px'
+                    }
+                }
+            },
+            componentDidMount: function(){
+                setTimeout(()=>{
+                    this.setState({
+                        greeting: 'Welcome',
+                        style: {
+                            color: 'red',
+                            fontSize: '30px'
+                        }
+                    });
+                },2000)
+            },
+            render: function(){
+                return <div style={this.state.style}>{this.state.greeting} {this.props.name}</div>
+            }
+        })
+        ReactDOM.render(<Hello name="abby" />,document.querySelector('#example'));
+
+    </script>
+  </body>
+</html>
