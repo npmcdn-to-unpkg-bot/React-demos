@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var List = React.createClass({
+            render: function(){
+                var arr = [{name:'abby'},{name:'lily'},{name:'cici'},{name:'scott'}];
+                return (
+                <ul>
+                {arr.map(function(item,index){
+                   return <li key={index}>Hello, {item.name}</li>
+                })}
+                </ul>)
+            },
+        });
+        ReactDOM.render(<List/>,document.querySelector('#example'));
+    </script>
+  </body>
+</html>

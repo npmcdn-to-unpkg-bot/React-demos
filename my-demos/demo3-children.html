@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var dom = document.querySelector('#example');
+        var Parent = React.createClass({
+            render: function(){
+                return (
+                    <ul>
+                        <li>Home</li>
+                        <li>
+                            About
+                            <Child/>
+                        </li>
+                        <li>Contact</li>
+                    </ul>
+                );
+            }
+        });
+        var Child = React.createClass({
+            render: function(){
+                return <p>Something about the company</p>
+            }
+        });
+
+        ReactDOM.render(<Parent/>,dom);
+    </script>
+  </body>
+</html>
