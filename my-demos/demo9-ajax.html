@@ -9,10 +9,16 @@
     <div id="example"></div>
     <script type="text/babel">
         var dom = document.querySelector('#example');
-        var getInfo=[],postInfo=[];
-
+        var info;
         var Ajax = React.createClass({
+            getInitialState: function(){
+                return {
+                    getInfo: [],
+                    postInfo: []
+                }
+            },
             ajax: function(method,data){
+                var self = this;
                 var xhr = new XMLHttpRequest();
                 
                 xhr.open(method,'/fetch',true);
@@ -20,9 +26,13 @@
                 xhr.onload = function(){
                     console.log(this.response);
                     if(method == 'GET'){
-                        getInfo = this.response;
+                        self.setState({
+                            getInfo: JSON.parse(this.response)
+                        });
                     }else{
-                        postInfo = this.response;
+                        self.setState({
+                            postInfo: JSON.parse(this.response)
+                        });
                     }
                 }
                 xhr.send(data);
@@ -42,14 +52,18 @@
                         <input type="button" value="click(POST)" onClick={this.post} />
                         <input type="button" value="click(GET)" onClick={this.get} />
                         <div class="get">
-                            {getInfo.map((item,i)=>{
-                                return <div key={i}>{item}</div>
-                            })}
+                            {
+                                this.state.getInfo.map((item,i)=>{
+                                    return <div key={i}>{item.name}</div>
+                                })
+                            }
                         </div>
                         <div class="post">
-                            {getInfo.map((item,i)=>{
-                                return <div key={i}>{item.name}</div>
-                            })}
+                            {
+                                this.state.postInfo.map((item,i)=>{
+                                    return <div key={i}>{item}</div>
+                                })
+                            }
                         </div>
                     </div>
                 );
