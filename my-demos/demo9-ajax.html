@@ -39,8 +39,9 @@
                 
             },
             post: function(e){
-                var data = JSON.stringify({data: this.refs.myInput.value});
+                var data = JSON.stringify({name: this.refs.myInput.value});
                 this.ajax('POST',data);
+                this.refs.myInput.value = '';
             },
             get: function(e){
                 this.ajax('GET',null);
@@ -51,25 +52,24 @@
                         <input type="text" ref="myInput" />
                         <input type="button" value="click(POST)" onClick={this.post} />
                         <input type="button" value="click(GET)" onClick={this.get} />
-                        <div class="get">
-                            {
-                                this.state.getInfo.map((item,i)=>{
-                                    return <div key={i}>{item.name}</div>
-                                })
-                            }
+                        <div className="get">
+                            <List data={this.state.getInfo} />
                         </div>
-                        <div class="post">
-                            {
-                                this.state.postInfo.map((item,i)=>{
-                                    return <div key={i}>{item}</div>
-                                })
-                            }
+                        <div className="post">
+                            <List data={this.state.postInfo} />
                         </div>
                     </div>
                 );
             },
         })
-        
+        var List = React.createClass({
+            render: function(){
+                var list = this.props.data.map((item,i)=>{
+                    return <div key={i}>{item.name}</div>
+                });
+                return <div>{list}</div>
+            },
+        });
         ReactDOM.render(<Ajax />,dom);
     </script>
   </body>

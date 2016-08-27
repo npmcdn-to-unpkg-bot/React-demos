@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var dom = document.querySelector('#example');
+        var str;
+        var arr = [];
+        var List = React.createClass({
+            getInitialState: function(){
+                return {
+                    data: []
+                }
+            },
+            clickHandler: function(e){
+                str = this.refs.inputs.value;
+                if(str != ''){
+                    arr.push(str);
+                    this.setState({
+                        data: arr
+                    });
+                    this.refs.inputs.value = '';
+                }
+                
+            },
+            render: function(){
+                return (
+                    <div>
+                        <input type="text" ref="inputs"/>
+                        <input type="button" value="Add" onClick={this.clickHandler}/>
+                        <ul>
+                            {
+                                this.state.data.map((item,i)=>{
+                                    return <li key={i}>{item}</li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                );
+            },
+        });
+        
+        ReactDOM.render(<List />,dom);
+    </script>
+  </body>
+</html>

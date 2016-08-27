@@ -23,8 +23,9 @@ app.get('/fetch', (req,res)=>{
 	console.log('receive request');
 	res.send(arr).end();
 });
+var data = [];
 app.post('/fetch', (req,res)=>{
-	var arr = [1,2,3,4,5];
-	console.log(req.body);
-	res.send(arr).end();
+	data.push(req.body);
+	console.log(data);
+	res.send(data).end();
 });
